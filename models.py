@@ -3,7 +3,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
-engine = create_engine('sqlite:///recipes.db')
+engine = create_engine('postgresql+psycopg2://catalog:password@/catalog')
 Base = declarative_base()
 
 # Class declarations
@@ -27,7 +27,7 @@ class Cuisine(Base):
 class Recipe(Base):
     __tablename__ = 'recipes'
     name = Column(String(80), nullable = False)
-    description = Column(String(250))
+    description = Column(String(10000))
     difficulty = Column(String, ForeignKey('difficulties.difficulty_id'), nullable=False)
     cuisine_id = Column(String, ForeignKey('cuisines.cuisine_id'), nullable=False)
     cuisine = relationship(Cuisine)

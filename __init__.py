@@ -7,8 +7,6 @@ from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 import random
 import string
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import FlowExchangeError
 from google.oauth2 import id_token
 from google.auth.transport import requests as googleRequests
 import sys
@@ -16,6 +14,8 @@ import codecs
 import httplib2
 import json
 import requests
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
 # use PoolListener to enforce foreign key constraints in sqlite
 from sqlalchemy.interfaces import PoolListener
 import time
@@ -29,7 +29,7 @@ class ForeignKeysListener(PoolListener):
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 # get google client id from client_secrets file
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())[
+CLIENT_ID = json.loads(open('/var/www/catalog/catalog/client_secrets.json', 'r').read())[
     'web']['client_id']
 # connect app to database
 engine = create_engine(
@@ -507,4 +507,4 @@ def generateAntiForgeryToken():
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run()

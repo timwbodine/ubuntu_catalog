@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 import sys
 import codecs
 
-engine=create_engine('sqlite:///recipes.db')
+engine=create_engine('postgresql+psycopg2://catalog:password@/catalog')
 
 Session = sessionmaker(bind=engine)
 session = Session()
